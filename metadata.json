@@ -1,0 +1,7 @@
+{
+  "name": "Walkie-Talkie",
+  "description": "가족, 연인, 소규모 팀을 위한 따뜻한 감성의 Apple HIG 스타일 인터넷 무전기 앱",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

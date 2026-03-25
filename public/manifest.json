@@ -1,0 +1,23 @@
+{
+  "name": "Walkie-Talkie",
+  "short_name": "무전기",
+  "description": "가족, 연인, 소규모 팀을 위한 실시간 무전기 앱",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F2F2F7",
+  "theme_color": "#007AFF",
+  "icons": [
+    {
+      "src": "https://picsum.photos/seed/radio/192/192",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://picsum.photos/seed/radio/512/512",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

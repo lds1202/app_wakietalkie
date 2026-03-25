@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about a walkie-talkie user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "URL to user's profile picture" },
+        "lastActive": { "type": "string", "format": "date-time", "description": "Last time the user was active" },
+        "isOnline": { "type": "boolean", "description": "Whether the user is currently online" }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "Channel": {
+      "title": "Radio Channel",
+      "description": "A communication channel for walkie-talkie users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique channel ID" },
+        "name": { "type": "string", "description": "Name of the channel" },
+        "isPublic": { "type": "boolean", "description": "Whether the channel is public" },
+        "inviteCode": { "type": "string", "description": "Code required to join if private" },
+        "ownerId": { "type": "string", "description": "UID of the channel creator" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the channel was created" },
+        "memberCount": { "type": "integer", "description": "Number of members in the channel" }
+      },
+      "required": ["name", "isPublic", "ownerId"]
+    },
+    "RadioLog": {
+      "title": "Radio Transmission Log",
+      "description": "Record of a radio transmission",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string", "description": "UID of the sender" },
+        "senderName": { "type": "string", "description": "Name of the sender at the time" },
+        "channelId": { "type": "string", "description": "ID of the channel where transmission occurred" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the transmission happened" },
+        "isMannerMode": { "type": "boolean", "description": "Whether it was a silent transmission" },
+        "audioData": { "type": "string", "description": "Base64 encoded audio data" }
+      },
+      "required": ["senderId", "senderName", "channelId", "timestamp"]
+    },
+    "Membership": {
+      "title": "Channel Membership",
+      "description": "Record of a user joining a channel",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "UID of the user" },
+        "channelId": { "type": "string", "description": "ID of the channel" },
+        "channelName": { "type": "string", "description": "Name of the channel" },
+        "joinedAt": { "type": "string", "format": "date-time", "description": "When the user joined" },
+        "isOwner": { "type": "boolean", "description": "Whether the user is the owner of the channel" }
+      },
+      "required": ["userId", "channelId", "channelName", "joinedAt"]
+    },
+    "PttStatus": {
+      "title": "PTT Active Status",
+      "description": "Real-time status of a user's PTT button",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "UID of the user" },
+        "userName": { "type": "string", "description": "Display name of the user" },
+        "channelId": { "type": "string", "description": "ID of the channel where user is talking" },
+        "status": { "type": "string", "enum": ["idle", "sending"], "description": "Current PTT status" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Last status update time" }
+      },
+      "required": ["userId", "userName", "channelId", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/channels/{channelId}": {
+      "schema": "Channel",
+      "description": "Channel documents"
+    },
+    "/channels/{channelId}/logs/{logId}": {
+      "schema": "RadioLog",
+      "description": "Transmission logs within a channel"
+    },
+    "/ptt_status/{uid}": {
+      "schema": "PttStatus",
+      "description": "Real-time PTT status for each user"
+    },
+    "/memberships/{membershipId}": {
+      "schema": "Membership",
+      "description": "User's channel memberships"
+    }
+  }
+}
